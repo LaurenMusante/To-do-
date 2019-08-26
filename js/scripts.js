@@ -18,15 +18,17 @@ var toDo = new ToDo();
 
 $(document).ready(function(event){
   toDo.list.forEach(function(task){
-    $("div.toDo").append("<p><input type='checkbox'>" + task.task + "</p>");
+    $("div.toDo").append("<p><input type='checkbox'>" + task.task + " " + task.dateDue + "</p>");
   });
   $("form").submit(function(event){
     event.preventDefault();
+    var today = new Date();
     var userInput = $("input[type=text]").val();
-    var userTask = new Task("today", userInput, "due date");
+    var userDate = $("input[name=dateDue]").val();
+    var userTask = new Task(today, userInput, userDate);
     toDo.addTask(userTask);
     console.log(toDo);
-    $("div.toDo").append("<p><input type='checkbox'>" + userTask.task + "</p>");
+    $("div.toDo").append("<p><input type='checkbox'>" + userTask.task + " " + userTask.dateDue +"</p>");
     $("div.toDo").show();
   })
 });
